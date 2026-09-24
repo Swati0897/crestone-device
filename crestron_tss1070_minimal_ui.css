@@ -1,19 +1,28 @@
 /*
-  Crestron TSS-1070 / Room Scheduling App
-  Minimal UI override:
-  - Keep room name
-  - Keep live date/time
-  - Hide status text ("AVAILABLE / FOR THE REST OF THE DAY")
-  - Hide scheduling timeline
-  - Hide interactive controls (+ and More)
-  - Keep the configured background image visible
-
-  Based on Crestron's documented CSS class names:
-  .room__container__room-details__name
-  .room__container__current-time
-  .timeline__content__...
+  Crestron TSS-1070
+  Minimal display:
+  - Show only live date and time
+  - Hide room name
+  - Hide Available/Reserved status
+  - Hide meeting details and timeline
+  - Hide scheduling controls
+  - Preserve configured background image
 */
 
+/* Hide the room name and main scheduling interface */
+.room__container__room-details__name {
+    display: none !important;
+}
+
+/* Hide status information */
+.room__container__status,
+.room__container__status__title,
+.room__container__status__details,
+.room__container__status__countdown {
+    display: none !important;
+}
+
+/* Hide the timeline and meeting schedule */
 .timeline,
 .timeline__content,
 .timeline__content__event,
@@ -22,29 +31,7 @@
     display: none !important;
 }
 
-/* Hide the main scheduling UI content/controls while allowing
-   the room name and live clock to remain visible. */
-.room__container {
-    visibility: hidden !important;
-}
-
-/* Keep ONLY the room name and live date/time visible. */
-.room__container__room-details__name,
-.room__container__current-time {
-    visibility: visible !important;
-}
-
-/* Hide the Available/Reserved status block. */
-.room__container__status,
-.room__container__status__title,
-.room__container__status__details,
-.room__container__status__countdown {
-    display: none !important;
-}
-
-/* Extra protection for common scheduling-control containers.
-   These rules are harmless if the corresponding class does not exist
-   in the installed scheduling-app version. */
+/* Hide meeting information and scheduling controls */
 .room__container__actions,
 .room__container__action,
 .room__container__buttons,
@@ -56,13 +43,25 @@
     display: none !important;
 }
 
-/* Remove the visual overlay that can be placed above a custom background. */
-.room__container::after {
-    opacity: 0 !important;
+/* Hide the rest of the room interface */
+.room__container {
+    visibility: hidden !important;
 }
 
-/* Keep the configured background image unobstructed. */
+/* Keep the live date and time visible */
+.room__container__current-time {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Preserve the background image */
 .room__image,
 .room__video {
     filter: none !important;
+}
+
+/* Remove any overlay, if present */
+.room__container::after {
+    opacity: 0 !important;
 }
