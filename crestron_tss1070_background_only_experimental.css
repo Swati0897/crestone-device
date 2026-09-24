@@ -1,0 +1,54 @@
+/*
+  Experimental minimal-display override for Crestron TSS-1070.
+  Goal: retain the room's configured background media while hiding scheduling UI.
+  NOTE: CSS class names can vary by app/firmware version. Test during a maintenance
+  window and keep the previous Theme/Style Override URL so you can roll back.
+*/
+
+/* Hide the standard scheduling interface descendants. The root room container
+   is left intact so a background applied to that container can still render. */
+.room__container * {
+  visibility: hidden !important;
+}
+
+/* If the configured background is rendered as an image/video element, retain it. */
+.room__container .room__image,
+.room__container .room__video,
+.room__container .room__container__background,
+.room__container .room__container__background * {
+  visibility: visible !important;
+}
+
+/* Remove the dimming/overlay layer some app themes place over the background. */
+.room__container::after,
+.screensaver__container::after {
+  opacity: 0 !important;
+  background: transparent !important;
+}
+
+/* Also suppress common timeline, status, action and reservation controls if they
+   are outside the main room container in this app build. */
+[class*="timeline"],
+[class*="Timeline"],
+[class*="status"],
+[class*="Status"],
+[class*="reservation"],
+[class*="Reservation"],
+[class*="action"],
+[class*="Action"],
+button,
+[role="button"] {
+  visibility: hidden !important;
+}
+
+/* Re-assert visibility for background media in case a broad selector matched it. */
+.room__image,
+.room__video {
+  visibility: visible !important;
+}
+
+/* Remove the background overlay tint without changing the configured image URL. */
+.room__image,
+.room__video {
+  filter: none !important;
+}
