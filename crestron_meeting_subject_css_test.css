@@ -1,0 +1,22 @@
+/*
+  Crestron Room Scheduling Panels - meeting subject display test
+  Uses the documented subject selector from Crestron's Room Scheduling
+  Panels Programming Guide. Intended as a temporary CSS-load test.
+*/
+
+/* Make the meeting subject use a wider area and wrap instead of truncating. */
+.room__container__status__details__subject {
+  width: 90vw !important;
+  max-width: 90vw !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  line-height: 1.15 !important;
+
+  /* Temporary, high-contrast styling to confirm the override is applied. */
+  color: #ff00cc !important;
+  background-color: #fff200 !important;
+  outline: 2px solid #ff00cc !important;
+}
